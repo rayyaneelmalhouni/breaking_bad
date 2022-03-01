@@ -1,14 +1,31 @@
 <script>
 	import Search from './components/Search.svelte';
 	import Show from './components/Show.svelte';
+	let names;
 	async function search() {
 		const info = await fetch("https://breakingbadapi.com/api/characters");
 		const data = await info.json();
-		console.log(data);
+		console.log(data)
+		return data;
 	}
+	let data = search()
+	
+	function name_generator(data) {
+		let names = [];
+		for (let i = 0; i <data.length; i++) {
+		    		names.push(data[i].name)
+		}
+		return names;
+		
+	}
+	
+	
+	// window.onload = search();
+	// console.log(names)
+	
 </script>
 
-<main>
+<main >
 	<div class="container">
 		<div class="titles">
 			<h1>Breaking Bad</h1>
@@ -17,7 +34,6 @@
 		
 	<Search />
 	<Show />
-	<button on:click={search}>Click</button>
 	</div>
 	
 </main>
